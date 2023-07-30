@@ -1,0 +1,11 @@
+FROM centos:7
+MAINTAINER kunal
+RUN yum install -y httpd openssl mod_ssl
+#RUN echo "The Web Server is Running" > /var/www/html/index.html
+COPY ./bluetrees /var/www/html/bluetrees
+COPY ./server.crt /etc/pki/tls/certs/
+COPY ./server.key /etc/pki/tls/private/
+EXPOSE 80
+EXPOSE 443
+CMD ["-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/httpd"]
